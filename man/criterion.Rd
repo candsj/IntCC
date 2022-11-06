@@ -15,7 +15,23 @@ criterion(
 )
 }
 \arguments{
-\item{dunn2s}{}
+\item{CM}{A list of consensus matrix.}
+
+\item{clLabels}{A matrix consists of clustering result corresponding to each consensus matrix.}
+
+\item{K}{A vector denotes number of clusters for each consensus matrix.}
+
+\item{Silhouette}{Boolean. If TRUE, compute Silhouette to choose
+best number of clusters. Default is TRUE.}
+
+\item{widestGap}{Boolean. If TRUE, compute also widest gap index to choose
+best number of clusters. Default is FALSE.}
+
+\item{dunns}{Boolean. If TRUE, compute also Dunn's index to choose best
+number of clusters. Default is FALSE.}
+
+\item{dunn2s}{Boolean. If TRUE, compute also alternative Dunn's index to
+choose best number of clusters. Default is FALSE.}
 }
 \description{
 Title

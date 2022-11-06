@@ -25,7 +25,51 @@ WeightedConsensusCluster(
 )
 }
 \arguments{
-\item{dunn2s}{}
+\item{data}{List of M datasets, each of size N X P_m, m = 1, ..., M.}
+
+\item{method}{One layer or two-layer. Default is one layer.}
+
+\item{individualK}{Vector containing the number of clusters in each dataset.
+Default is NULL. If the number of clusters is not provided, then all the
+possible values between 2 and individualMaxK are considered and the best
+value is chosen for each dataset by maximising the silhouette.}
+
+\item{individualMaxK}{Maximum number of clusters considered for the
+individual data. Default is 10.}
+
+\item{globalK}{Number of global clusters. Default is NULL. If the number of
+clusters is not provided, then all the number of clusters for each dataset will be used and decided
+according to criterion defined.}
+
+\item{B}{Number of iterations for consensus clustering. Default is 1000.}
+
+\item{pItem}{Proportion of items sampled at each iteration.}
+
+\item{pFeature}{Proportion of features sampled at each iteration.}
+
+\item{ccClMethods}{The i-th element of this vector goes into the
+"clMethod" argument of consensusCluster() for the i-th dataset. If only
+one string is provided, then the same method is used for all datasets.}
+
+\item{ccDistHCs}{Distance used for each clustering method. Default is Euclidean distance.}
+
+\item{hclustMethod}{Method used for hclust method only worked when hclust method used in consensus clustering.}
+
+\item{finalclmethod}{Method used for final clustering. It could be pam or hclust.}
+
+\item{finalhclustMethod}{Method used for hclust method only worked when hclust method used in final clustering.}
+
+\item{Silhouette}{Boolean. If TRUE, compute Silhouette to choose
+best number of clusters. Default is TRUE.}
+
+\item{widestGap}{Boolean. If TRUE, compute also widest gap index to choose
+best number of clusters. Default is FALSE.}
+
+\item{dunns}{Boolean. If TRUE, compute also Dunn's index to choose best
+number of clusters. Default is FALSE.}
+
+\item{dunn2s}{Boolean. If TRUE, compute also alternative Dunn's index to
+choose best number of clusters. Default is FALSE.}
 }
 \description{
 Title

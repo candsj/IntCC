@@ -7,7 +7,8 @@
 weightcal(result)
 }
 \arguments{
-\item{result}{}
+\item{result}{Results derived from consensus clustering.
+It consists of a list of several consensus matrix and corresponding clustering label results.}
 }
 \description{
 Title

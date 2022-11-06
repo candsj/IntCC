@@ -2,7 +2,7 @@
 % Please edit documentation in R/consensuscluster.R
 \name{consensuscluster}
 \alias{consensuscluster}
-\title{Title}
+\title{Consensus clustering}
 \usage{
 consensuscluster(
   data = NULL,
@@ -21,8 +21,48 @@ consensuscluster(
 )
 }
 \arguments{
-\item{nstart}{}
+\item{data}{N X P data matrix}
+
+\item{K}{Number of clusters.}
+
+\item{B}{Number of iterations.}
+
+\item{pItem}{Proportion of items sampled at each iteration.}
+
+\item{pFeature}{Proportion of features sampled at each iteration.}
+
+\item{clMethod}{Clustering algorithm. Can be "hclust" for hierarchical
+clustering, "kmeans" for k-means clustering, "pam" for partitioning around
+medoids, "sparse-kmeans" for sparse k-means clustering or "sparse-hclust"
+for sparse hierarchical clustering. Default is "hclust". However, if the data
+contain at least one covariate that is a factor, the default clustering
+algorithm is "pam".}
+
+\item{dist}{Distance used for hierarchical clustering. Can be "pearson" (for
+1 - Pearson correlation), "spearman" (for 1- Spearman correlation), any of
+the distances provided in stats::dist() (i.e. "euclidean", "maximum",
+"manhattan", "canberra", "binary" or "minkowski"), or a matrix containing the
+distances between the observations.}
+
+\item{hclustMethod}{Hierarchical clustering method. Default is "average". For
+more details see \code{?hclust}.}
+
+\item{finalclmethod}{Final clustering method. Could be "pam" or "hclust".}
+
+\item{finalhclustMethod}{Hierarchical clustering method for final clustering. Default is "average". For
+more details see \code{?hclust}.}
+
+\item{sparseKmeansPenalty}{If the selected clustering method is
+"sparse-kmeans", this is the value of the parameter "wbounds" of the
+"KMeansSparseCluster" function. The default value is the square root of the
+number of variables.}
+
+\item{maxIterKM}{Number of iterations for the k-means clustering algorithm.}
+
+\item{nstart}{nstart parameter for k-means if used.}
 }
 \description{
-Title
+This function allows to perform consensus clustering using the k-means
+clustering algorithm, for a fixed number of clusters. We consider the number
+of clusters K to be fixed.
 }

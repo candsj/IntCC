@@ -7,7 +7,11 @@
 data_generation(clustersize, info_features, total_features)
 }
 \arguments{
-\item{total_features}{}
+\item{clustersize}{A number or a vector denotes the number of samples for each cluster.}
+
+\item{info_features}{Number of informative features.}
+
+\item{total_features}{Number of total features.}
 }
 \description{
 Title
