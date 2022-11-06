@@ -2,3 +2,4 @@
 ^renv\.lock$
 ^weightedCC\.Rproj$
 ^\.Rproj\.user$
+^README\.Rmd$
