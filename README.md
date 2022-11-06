@@ -23,7 +23,7 @@ devtools::install_github("candsj/weightedCC")
 This is a basic example which shows you how to solve a common problem:
 
 ``` r
-#library(weightedCC)
+# library(weightedCC)
 ## basic example code
 ```
 
