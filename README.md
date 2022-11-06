@@ -4,6 +4,8 @@
 # weightedCC
 
 <!-- badges: start -->
+
+[![R-CMD-check](https://github.com/candsj/weightedCC/actions/workflows/R-CMD-check.yaml/badge.svg)](https://github.com/candsj/weightedCC/actions/workflows/R-CMD-check.yaml)
 <!-- badges: end -->
 
 The goal of weightedCC is to …
