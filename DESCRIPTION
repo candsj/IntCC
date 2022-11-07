@@ -13,4 +13,4 @@ Imports: cluster, e1071, fpc, sparcl,klaR,philentropy
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
 VignetteBuilder: knitr
-Suggests:  covr,renv,Rmosek,  knitr,markdown
+Suggests:  covr,renv,Rmosek,  knitr,rmarkdown
