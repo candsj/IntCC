@@ -9,8 +9,8 @@ Authors@R:
 Description: One layer or two-layer weighted consensus clustering.
 License: MIT + file LICENSE
 Encoding: UTF-8
+Imports: cluster, e1071, fpc, sparcl,klaR,philentropy
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
-Suggests: 
-    covr,
-    renv
+VignetteBuilder: knitr
+Suggests:  covr,renv,Rmosek,  knitr,markdown

@@ -16,6 +16,13 @@
 #' @export
 #'
 #' @examples
+#'
+#'
+#'
+#'
+#'
+#'
+#'
 
 criterion <- function(CM, clLabels, K, Silhouette = Silhouette, widestGap = widestGap,
                       dunns = dunns,

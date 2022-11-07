@@ -37,7 +37,7 @@ WeightedConsensusCluster <- function(data, method = NULL, individualK = NULL,
                                      individualMaxK = 10,
                                      globalK = NULL,
                                      B = 1000, pItem = 0.8,
-                                     pFeature = 1, ccClMethods = "k-means",
+                                     pFeature = 1, ccClMethods = "kmeans",
                                      ccDistHCs = "euclidean", hclustMethod = "average", finalclmethod = "hclust",
                                      finalhclustMethod = "average",
                                      Silhouette = TRUE,
@@ -52,11 +52,6 @@ WeightedConsensusCluster <- function(data, method = NULL, individualK = NULL,
       stop("All datasets must have the same number of rows.")
     }
   }
-  if (verbose) {
-    cat("All datasets contain the same number of observations ", N, ".\n")
-  }
-  cat("We assume that the observations are the same in each dataset and that they are in the same order.\n")
-
   if (is.null(method)) stop("method should be provided")
   method <- match.arg(method, c("one layer", "two-layer"))
 
@@ -102,7 +97,7 @@ WeightedConsensusCluster <- function(data, method = NULL, individualK = NULL,
           clLabels[j - 1, ] <- CCoutput[[2]]
         }
         chooseK <- criterion(tempCM, clLabels,
-          K = 2:globalMaxK, Silhouette = Silhouette, widestGap = widestGap,
+          K = 2:individualMaxK, Silhouette = Silhouette, widestGap = widestGap,
           dunns = dunns, dunn2s = dunn2s
         )
         # If there is more than one, choose smallest number of clusters
@@ -123,7 +118,7 @@ WeightedConsensusCluster <- function(data, method = NULL, individualK = NULL,
         Ks <- sort(unique(output$bestK))
         if (length(Ks) == 1) {
           if (finalclmethod == "pam") {
-            weight_clusterLabels <- pam(distances, Ks, diss = TRUE, metric = "euclidean")$clustering
+            weight_clusterLabels <- cluster::pam(distances, Ks, diss = TRUE, metric = "euclidean")$clustering
           } else {
             hClustering <- stats::hclust(distances, method = finalhclustMethod)
             weight_clusterLabels <- stats::cutree(hClustering, Ks)
@@ -143,7 +138,7 @@ WeightedConsensusCluster <- function(data, method = NULL, individualK = NULL,
 
           for (k in 1:number.Ks) {
             if (finalclmethod == "pam") {
-              weight_clusterLabels <- pam(distances, Ks[k], diss = TRUE, metric = "euclidean")$clustering
+              weight_clusterLabels <- cluster::pam(distances, Ks[k], diss = TRUE, metric = "euclidean")$clustering
               tempCM[, , k] <- wcm
               clLabels[k, ] <- weight_clusterLabels
             } else {
@@ -159,7 +154,7 @@ WeightedConsensusCluster <- function(data, method = NULL, individualK = NULL,
           )
           globalK <- output$globalK <- chooseK$finalK
           # Save chosen cluster labels
-          output$globalClusterLabels <- clLabels[which(ks == globalK), ]
+          output$globalClusterLabels <- clLabels[which(Ks == globalK), ]
           # Save chosen weights
           output$weights <- weights
           # Save chosen consensus matrix
@@ -167,7 +162,7 @@ WeightedConsensusCluster <- function(data, method = NULL, individualK = NULL,
         }
       } else {
         if (finalclmethod == "pam") {
-          weight_clusterLabels <- pam(distances, globalK, diss = TRUE, metric = "euclidean")$clustering
+          weight_clusterLabels <- cluster::pam(distances, globalK, diss = TRUE, metric = "euclidean")$clustering
         } else {
           hClustering <- stats::hclust(distances, method = finalhclustMethod)
           weight_clusterLabels <- stats::cutree(hClustering, globalK)
@@ -184,7 +179,7 @@ WeightedConsensusCluster <- function(data, method = NULL, individualK = NULL,
       if (length(ccClMethods) == 1) {
         ccClMethods <- vector("list", M)
         for (i in 1:M) {
-          ccClMethods[[i]] <- c("k-means", "hclust")
+          ccClMethods[[i]] <- c("kmeans", "hclust")
         }
       } else if (length(ccClMethods) != M) {
         stop("Please specify methods for each dataset by passing a list of length", M, "to ccClMethods.")
@@ -234,7 +229,7 @@ WeightedConsensusCluster <- function(data, method = NULL, individualK = NULL,
             clLabels[j - 1, ] <- CCoutput[[2]]
           }
           chooseK <- criterion(tempCM, clLabels,
-            K = 2:globalMaxK, Silhouette = Silhouette, widestGap = widestGap,
+            K = 2:individualMaxK, Silhouette = Silhouette, widestGap = widestGap,
             dunns = dunns, dunn2s = dunn2s
           )
           # If there is more than one, choose smallest number of clusters
@@ -261,7 +256,7 @@ WeightedConsensusCluster <- function(data, method = NULL, individualK = NULL,
               clLabels[j - 1, ] <- CCoutput[[2]]
             }
             chooseK <- criterion(tempCM, clLabels,
-              K = 2:globalMaxK, Silhouette = Silhouette, widestGap = widestGap,
+              K = 2:individualMaxK, Silhouette = Silhouette, widestGap = widestGap,
               dunns = dunns, dunn2s = dunn2s
             )
             # If there is more than one, choose smallest number of clusters
@@ -281,7 +276,7 @@ WeightedConsensusCluster <- function(data, method = NULL, individualK = NULL,
           Ks <- sort(output$bestK[[i]])
           if (length(Ks) == 1) {
             if (finalclmethod == "pam") {
-              weight_clusterLabels <- pam(distances, Ks, diss = TRUE, metric = "euclidean")$clustering
+              weight_clusterLabels <- cluster::pam(distances, Ks, diss = TRUE, metric = "euclidean")$clustering
             } else {
               hClustering <- stats::hclust(distances, method = finalhclustMethod)
               weight_clusterLabels <- stats::cutree(hClustering, Ks)
@@ -299,7 +294,7 @@ WeightedConsensusCluster <- function(data, method = NULL, individualK = NULL,
 
             for (k in 1:number.Ks) {
               if (finalclmethod == "pam") {
-                weight_clusterLabels <- pam(distances, Ks[k], diss = TRUE, metric = "euclidean")$clustering
+                weight_clusterLabels <- cluster::pam(distances, Ks[k], diss = TRUE, metric = "euclidean")$clustering
                 tempCM[, , k] <- wcm
                 clLabels[k, ] <- weight_clusterLabels
               } else {
@@ -318,7 +313,7 @@ WeightedConsensusCluster <- function(data, method = NULL, individualK = NULL,
 
 
 
-            res.all[[i]] <- list(wcm, clLabels[which(ks == output$bestK[[i]]), ])
+            res.all[[i]] <- list(wcm, clLabels[which(Ks == output$bestK[[i]]), ])
             names(res.all[[i]]) <- c("consensusMatrix", "class")
           }
         }
@@ -328,7 +323,7 @@ WeightedConsensusCluster <- function(data, method = NULL, individualK = NULL,
         Ks <- sort(unique(unlist(output$bestK)))
         if (length(Ks) == 1) {
           if (finalclmethod == "pam") {
-            weight_clusterLabels <- pam(distances, Ks, diss = TRUE, metric = "euclidean")$clustering
+            weight_clusterLabels <- cluster::pam(distances, Ks, diss = TRUE, metric = "euclidean")$clustering
           } else {
             hClustering <- stats::hclust(distances, method = finalhclustMethod)
             weight_clusterLabels <- stats::cutree(hClustering, Ks)
@@ -348,7 +343,7 @@ WeightedConsensusCluster <- function(data, method = NULL, individualK = NULL,
 
           for (k in 1:number.Ks) {
             if (finalclmethod == "pam") {
-              weight_clusterLabels <- pam(distances, Ks[k], diss = TRUE, metric = "euclidean")$clustering
+              weight_clusterLabels <- cluster::pam(distances, Ks[k], diss = TRUE, metric = "euclidean")$clustering
               tempCM[, , k] <- wcm
               clLabels[k, ] <- weight_clusterLabels
             } else {
@@ -364,7 +359,7 @@ WeightedConsensusCluster <- function(data, method = NULL, individualK = NULL,
           )
           globalK <- output$globalK <- chooseK$finalK
           # Save chosen cluster labels
-          output$globalClusterLabels <- clLabels[which(ks == globalK), ]
+          output$globalClusterLabels <- clLabels[which(Ks == globalK), ]
           # Save chosen weights
           output$weights <- weights
           # Save chosen consensus matrix
@@ -372,7 +367,7 @@ WeightedConsensusCluster <- function(data, method = NULL, individualK = NULL,
         }
       } else {
         if (finalclmethod == "pam") {
-          weight_clusterLabels <- pam(distances, globalK, diss = TRUE, metric = "euclidean")$clustering
+          weight_clusterLabels <- cluster::pam(distances, globalK, diss = TRUE, metric = "euclidean")$clustering
         } else {
           hClustering <- stats::hclust(distances, method = finalhclustMethod)
           weight_clusterLabels <- stats::cutree(hClustering, globalK)
@@ -438,7 +433,7 @@ WeightedConsensusCluster <- function(data, method = NULL, individualK = NULL,
       Ks <- sort(unique(individualK))
       if (length(Ks) == 1) {
         if (finalclmethod == "pam") {
-          weight_clusterLabels <- pam(distances, Ks, diss = TRUE, metric = "euclidean")$clustering
+          weight_clusterLabels <- cluster::pam(distances, Ks, diss = TRUE, metric = "euclidean")$clustering
         } else {
           hClustering <- stats::hclust(distances, method = finalhclustMethod)
           weight_clusterLabels <- stats::cutree(hClustering, Ks)
@@ -458,7 +453,7 @@ WeightedConsensusCluster <- function(data, method = NULL, individualK = NULL,
 
         for (k in 1:number.Ks) {
           if (finalclmethod == "pam") {
-            weight_clusterLabels <- pam(distances, Ks[k], diss = TRUE, metric = "euclidean")$clustering
+            weight_clusterLabels <- cluster::pam(distances, Ks[k], diss = TRUE, metric = "euclidean")$clustering
             tempCM[, , k] <- wcm
             clLabels[k, ] <- weight_clusterLabels
           } else {
@@ -474,7 +469,7 @@ WeightedConsensusCluster <- function(data, method = NULL, individualK = NULL,
         )
         globalK <- output$globalK <- chooseK$finalK
         # Save chosen cluster labels
-        output$globalClusterLabels <- clLabels[which(ks == globalK), ]
+        output$globalClusterLabels <- clLabels[which(Ks == globalK), ]
         # Save chosen weights
         output$weights <- weights
         # Save chosen consensus matrix
@@ -482,7 +477,7 @@ WeightedConsensusCluster <- function(data, method = NULL, individualK = NULL,
       }
     } else {
       if (finalclmethod == "pam") {
-        weight_clusterLabels <- pam(distances, globalK, diss = TRUE, metric = "euclidean")$clustering
+        weight_clusterLabels <- cluster::pam(distances, globalK, diss = TRUE, metric = "euclidean")$clustering
       } else {
         hClustering <- stats::hclust(distances, method = finalhclustMethod)
         weight_clusterLabels <- stats::cutree(hClustering, globalK)
@@ -517,7 +512,7 @@ WeightedConsensusCluster <- function(data, method = NULL, individualK = NULL,
     if (length(ccClMethods) == 1) {
       ccClMethods <- vector("list", M)
       for (i in 1:M) {
-        ccClMethods[[i]] <- c("k-means", "hclust")
+        ccClMethods[[i]] <- c("kmeans", "hclust")
       }
     } else if (length(ccClMethods) != M) {
       stop("Please specify methods for each dataset by passing a list of length", M, "to ccClMethods.")
@@ -582,7 +577,7 @@ WeightedConsensusCluster <- function(data, method = NULL, individualK = NULL,
 
 
         if (finalclmethod == "pam") {
-          weight_clusterLabels <- pam(distances, individualK[i], diss = TRUE, metric = "euclidean")$clustering
+          weight_clusterLabels <- cluster::pam(distances, individualK[i], diss = TRUE, metric = "euclidean")$clustering
         } else {
           hClustering <- stats::hclust(distances, method = finalhclustMethod)
           weight_clusterLabels <- stats::cutree(hClustering, individualK[i])
@@ -598,7 +593,7 @@ WeightedConsensusCluster <- function(data, method = NULL, individualK = NULL,
       Ks <- sort(unique(unlist(output$bestK)))
       if (length(Ks) == 1) {
         if (finalclmethod == "pam") {
-          weight_clusterLabels <- pam(distances, Ks, diss = TRUE, metric = "euclidean")$clustering
+          weight_clusterLabels <- cluster::pam(distances, Ks, diss = TRUE, metric = "euclidean")$clustering
         } else {
           hClustering <- stats::hclust(distances, method = finalhclustMethod)
           weight_clusterLabels <- stats::cutree(hClustering, Ks)
@@ -618,7 +613,7 @@ WeightedConsensusCluster <- function(data, method = NULL, individualK = NULL,
 
         for (k in 1:number.Ks) {
           if (finalclmethod == "pam") {
-            weight_clusterLabels <- pam(distances, Ks[k], diss = TRUE, metric = "euclidean")$clustering
+            weight_clusterLabels <- cluster::pam(distances, Ks[k], diss = TRUE, metric = "euclidean")$clustering
             tempCM[, , k] <- wcm
             clLabels[k, ] <- weight_clusterLabels
           } else {
@@ -634,7 +629,7 @@ WeightedConsensusCluster <- function(data, method = NULL, individualK = NULL,
         )
         globalK <- output$globalK <- chooseK$finalK
         # Save chosen cluster labels
-        output$globalClusterLabels <- clLabels[which(ks == globalK), ]
+        output$globalClusterLabels <- clLabels[which(Ks == globalK), ]
         # Save chosen weights
         output$weights <- weights
         # Save chosen consensus matrix
@@ -642,7 +637,7 @@ WeightedConsensusCluster <- function(data, method = NULL, individualK = NULL,
       }
     } else {
       if (finalclmethod == "pam") {
-        weight_clusterLabels <- pam(distances, globalK, diss = TRUE, metric = "euclidean")$clustering
+        weight_clusterLabels <- cluster::pam(distances, globalK, diss = TRUE, metric = "euclidean")$clustering
       } else {
         hClustering <- stats::hclust(distances, method = finalhclustMethod)
         weight_clusterLabels <- stats::cutree(hClustering, globalK)

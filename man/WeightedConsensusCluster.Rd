@@ -13,7 +13,7 @@ WeightedConsensusCluster(
   B = 1000,
   pItem = 0.8,
   pFeature = 1,
-  ccClMethods = "k-means",
+  ccClMethods = "kmeans",
   ccDistHCs = "euclidean",
   hclustMethod = "average",
   finalclmethod = "hclust",

@@ -33,7 +33,13 @@
 #' @return consensus matrix and label results
 #' @export
 #'
-#' @examples
+#' @examples library(weightedCC)
+#' simulation=data_generation(20,5,30)
+#' normData=simulation[[1]]
+#' normRes=consensuscluster(normData,K=3,B=1000,pItem = 0.8,pFeature = 0.8 ,
+#' clMethod ="kmeans",finalclmethod="pam")
+
+
 consensuscluster <-
   function(data = NULL,
            K = 2,
@@ -111,11 +117,11 @@ consensuscluster <-
             )$cluster
           } else if (clMethod == "sparse-kmeans" & !is.null(data)) {
             if (is.null(sparseKmeansPenalty)) {
-              km.perm <- KMeansSparseCluster.permute(data[items, ], K = K, nperms = 50)
+              km.perm <- sparcl::KMeansSparseCluster.permute(data[items, ], K = K, nperms = 50)
             }
 
             # Apply sparse k-means to the subsample and extract cluster labels
-            cl <- KMeansSparseCluster(
+            cl <- sparcl::KMeansSparseCluster(
               data[items, ], K,
               wbounds = km.perm$bestw
             )[[1]]$Cs
@@ -123,7 +129,7 @@ consensuscluster <-
             # Apply k-means to the subsample and extract cluster labels
             cl <- NULL
             while (is.null(cl)) {
-              try(cl <- klaR::kmodes(moc[items, ], 6, iter.max = 1000)$cluster, silent = TRUE)
+              try(cl <- klaR::kmodes(data[items, ], 6, iter.max = 1000)$cluster, silent = TRUE)
             }
           } else if (clMethod == "hclust" | clMethod == "sparse-hclust") {
             if (dist == "pearson" | dist == "spearman") {
@@ -137,14 +143,15 @@ consensuscluster <-
               distances <- stats::dist(data[items, ], method = dist)
             } else {
               # Calculate pairwise distances between observations
-              distances <- suppressMessages(stats::as.dist(philentropy::distance(data[items, ], method = dist)))
+              distances <- philentropy::distance(data[items, ], method = dist)
+              distances <- suppressMessages(stats::as.dist(distances))
             }
             # Apply hierarchical clustering to the subsample
             if (clMethod == "hclust") {
               hClustering <- stats::hclust(distances, method = hclustMethod)
             } else {
-              hc.perm <- HierarchicalSparseCluster.permute(data[items, ], dissimilarity = "squared.distance", nperms = 50)
-              hClustering <- HierarchicalSparseCluster(
+              hc.perm <- sparcl::HierarchicalSparseCluster.permute(data[items, ], dissimilarity = "squared.distance", nperms = 50)
+              hClustering <- sparcl::HierarchicalSparseCluster(
                 x = data[items, ], method = "average", dissimilarity = "squared.distance", wbound = hc.perm$bestw
               )$hc
             }
@@ -212,11 +219,11 @@ consensuscluster <-
             )$cluster
           } else if (clMethod == "sparse-kmeans" & !is.null(data)) {
             if (is.null(sparseKmeansPenalty)) {
-              km.perm <- KMeansSparseCluster.permute(data[items, features], K = K, nperms = 50)
+              km.perm <- sparcl::KMeansSparseCluster.permute(data[items, features], K = K, nperms = 50)
             }
 
             # Apply sparse k-means to the subsample and extract cluster labels
-            cl <- KMeansSparseCluster(
+            cl <- sparcl::KMeansSparseCluster(
               data[items, features], K,
               wbounds = km.perm$bestw
             )[[1]]$Cs
@@ -224,7 +231,7 @@ consensuscluster <-
             # Apply k-means to the subsample and extract cluster labels
             cl <- NULL
             while (is.null(cl)) {
-              try(cl <- klaR::kmodes(moc[items, ], 6, iter.max = 1000)$cluster, silent = TRUE)
+              try(cl <- klaR::kmodes(data[items, ], 6, iter.max = 1000)$cluster, silent = TRUE)
             }
           } else if (clMethod == "hclust" | clMethod == "sparse-hclust") {
             if (dist == "pearson" | dist == "spearman") {
@@ -238,14 +245,15 @@ consensuscluster <-
               distances <- stats::dist(data[items, features], method = dist)
             } else {
               # Calculate pairwise distances between observations
-              distances <- suppressMessages(stats::as.dist(philentropy::distance(data[items, features], method = dist)))
+              distances <- philentropy::distance(data[items, features], method = dist)
+              distances <- suppressMessages(stats::as.dist(distances))
             }
             # Apply hierarchical clustering to the subsample
             if (clMethod == "hclust") {
               hClustering <- stats::hclust(distances, method = hclustMethod)
             } else {
-              hc.perm <- HierarchicalSparseCluster.permute(data[items, features], dissimilarity = "squared.distance", nperms = 50)
-              hClustering <- HierarchicalSparseCluster(
+              hc.perm <- sparcl::HierarchicalSparseCluster.permute(data[items, features], dissimilarity = "squared.distance", nperms = 50)
+              hClustering <- sparcl::HierarchicalSparseCluster(
                 x = data[items, features], method = "average", dissimilarity = "squared.distance", wbound = hc.perm$bestw
               )$hc
             }
@@ -288,7 +296,7 @@ consensuscluster <-
       hClustering <- stats::hclust(distances, method = finalhclustMethod)
       clusterLabels <- stats::cutree(hClustering, K)
     } else {
-      clusterLabels <- pam(distances, K, diss = TRUE, metric = "euclidean")$clustering
+      clusterLabels <- cluster::pam(distances, K, diss = TRUE, metric = "euclidean")$clustering
     }
     res <- alist()
     res[[1]] <- consensusMatrix

@@ -7,7 +7,7 @@ output:
     toc: true
     theme: united
 vignette: >
-  %\VignetteIndexEntry{R package klic}
+  %\VignetteIndexEntry{R package wcc}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
@@ -112,7 +112,7 @@ Now we can use the `consensusclustering` function to compute a consensus matrix 
 
 Then we could perform one layer weighted consensus clustering.
 
-```{r one layer weighted consensus clustering, fig.show='hold', eval=FALSE,warning=FALSE, cache=TRUE}
+```{r one layer wcc, fig.show='hold', eval=FALSE,warning=FALSE, cache=TRUE}
   res.all <- c(list(normRes),list(binomRes),list(poisRes),list(multRes))
   weights <-weightcal(res.all)
   wcm=weights[1]*res.all[[1]]$consensusMatrix+weights[2]*res.all[[2]]$consensusMatrix+
@@ -124,7 +124,7 @@ Then we could perform one layer weighted consensus clustering.
 
 Or we could perform two-layer weighted consensus clustering.
 
-```{r two-layer weighted consensus clustering, fig.show='hold', eval=FALSE,warning=FALSE, cache=TRUE}
+```{r two-layer wcc, fig.show='hold', eval=FALSE,warning=FALSE, cache=TRUE}
   #norm
   res.norm <- c(list(normRes),list(normRes1))
   weight.norm<- weightcal(res.norm)

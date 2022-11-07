@@ -7,6 +7,9 @@
 #' @export
 #'
 #' @examples
+#' library(weightedCC)
+#' simulation=data_generation(20,5,30)
+
 data_generation <- function(clustersize, info_features, total_features) {
   p <- total_features
   if (length(clustersize) == 1) {
@@ -28,31 +31,31 @@ data_generation <- function(clustersize, info_features, total_features) {
   }
 
   ################# normal distribution ####################
-  c1 <- matrix(rnorm(n1 * p1, mean = 2.2, sd = 1.7), ncol = p1, nrow = n1)
-  c2 <- matrix(rnorm(n2 * p2, mean = 1.6, sd = 1.7), ncol = p2, nrow = n2)
-  c3 <- matrix(rnorm(n3 * p3, mean = 1, sd = 1.7), ncol = p3, nrow = n3)
+  c1 <- matrix(stats::rnorm(n1 * p1, mean = 2.2, sd = 1.7), ncol = p1, nrow = n1)
+  c2 <- matrix(stats::rnorm(n2 * p2, mean = 1.6, sd = 1.7), ncol = p2, nrow = n2)
+  c3 <- matrix(stats::rnorm(n3 * p3, mean = 1, sd = 1.7), ncol = p3, nrow = n3)
 
-  normData <- matrix(rnorm(n * p, mean = 0, sd = 1.7), nrow = n, ncol = p)
+  normData <- matrix(stats::rnorm(n * p, mean = 0, sd = 1.7), nrow = n, ncol = p)
   normData[1:n1, 1:p1] <- c1
   normData[(n1 + 1):(n1 + n2), (p1 + 1):(p1 + p2)] <- c2
   normData[(n1 + n2 + 1):n, (p1 + p2 + 1):(p1 + p2 + p3)] <- c3
 
   ######## binomial data #########################
-  c1 <- matrix(rbinom(n1 * p1, size = 1, prob = 0.54), ncol = p1, nrow = n1)
-  c2 <- matrix(rbinom(n2 * p2, size = 1, prob = 0.42), ncol = p2, nrow = n2)
-  c3 <- matrix(rbinom(n3 * p3, size = 1, prob = 0.3), ncol = p3, nrow = n3)
+  c1 <- matrix(stats::rbinom(n1 * p1, size = 1, prob = 0.54), ncol = p1, nrow = n1)
+  c2 <- matrix(stats::rbinom(n2 * p2, size = 1, prob = 0.42), ncol = p2, nrow = n2)
+  c3 <- matrix(stats::rbinom(n3 * p3, size = 1, prob = 0.3), ncol = p3, nrow = n3)
 
-  binomData <- matrix(rbinom(n * p, size = 1, prob = 0.1), nrow = n, ncol = p)
+  binomData <- matrix(stats::rbinom(n * p, size = 1, prob = 0.1), nrow = n, ncol = p)
   binomData[1:n1, 1:p1] <- c1
   binomData[(n1 + 1):(n1 + n2), (p1 + 1):(p1 + p2)] <- c2
   binomData[(n1 + n2 + 1):n, (p1 + p2 + 1):(p1 + p2 + p3)] <- c3
 
   ######### poisson data ############################
-  c1 <- matrix(rpois(n1 * p1, lambda = 1.9), ncol = p1, nrow = n1)
-  c2 <- matrix(rpois(n2 * p2, lambda = 1.5), ncol = p2, nrow = n2)
-  c3 <- matrix(rpois(n3 * p3, lambda = 1), ncol = p3, nrow = n3)
+  c1 <- matrix(stats::rpois(n1 * p1, lambda = 1.9), ncol = p1, nrow = n1)
+  c2 <- matrix(stats::rpois(n2 * p2, lambda = 1.5), ncol = p2, nrow = n2)
+  c3 <- matrix(stats::rpois(n3 * p3, lambda = 1), ncol = p3, nrow = n3)
 
-  poisData <- matrix(rpois(n * p, lambda = 0.6), nrow = n, ncol = p)
+  poisData <- matrix(stats::rpois(n * p, lambda = 0.6), nrow = n, ncol = p)
   poisData[1:n1, 1:p1] <- c1
   poisData[(n1 + 1):(n1 + n2), (p1 + 1):(p1 + p2)] <- c2
   poisData[(n1 + n2 + 1):n, (p1 + p2 + 1):(p1 + p2 + p3)] <- c3

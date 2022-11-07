@@ -19,3 +19,7 @@ simulation datasets
 \description{
 Title
 }
+\examples{
+library(weightedCC)
+simulation=data_generation(20,5,30)
+}
