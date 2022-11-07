@@ -33,6 +33,9 @@ number of clusters. Default is FALSE.}
 \item{dunn2s}{Boolean. If TRUE, compute also alternative Dunn's index to
 choose best number of clusters. Default is FALSE.}
 }
+\value{
+best final K and criterion used
+}
 \description{
 Title
 }

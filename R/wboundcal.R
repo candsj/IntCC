@@ -3,7 +3,7 @@
 #' @param data
 #' @param K
 #'
-#' @return
+#' @return wbound calculated from regression
 #' @export
 #'
 #' @examples

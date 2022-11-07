@@ -61,6 +61,9 @@ number of variables.}
 
 \item{nstart}{nstart parameter for k-means if used.}
 }
+\value{
+consensus matrix and label results
+}
 \description{
 This function allows to perform consensus clustering using the k-means
 clustering algorithm, for a fixed number of clusters. We consider the number

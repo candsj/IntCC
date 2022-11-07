@@ -30,7 +30,7 @@
 #' number of variables.
 #' @param maxIterKM Number of iterations for the k-means clustering algorithm.
 #' @param nstart nstart parameter for k-means if used.
-#'
+#' @return consensus matrix and label results
 #' @export
 #'
 #' @examples

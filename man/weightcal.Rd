@@ -10,6 +10,9 @@ weightcal(result)
 \item{result}{Results derived from consensus clustering.
 It consists of a list of several consensus matrix and corresponding clustering label results.}
 }
+\value{
+weights for each consensus matrix
+}
 \description{
 Title
 }

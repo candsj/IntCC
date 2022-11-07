@@ -3,7 +3,7 @@
 #' @param result Results derived from consensus clustering.
 #' It consists of a list of several consensus matrix and corresponding clustering label results.
 #'
-#' @return
+#' @return weights for each consensus matrix
 #' @export
 #'
 #' @examples

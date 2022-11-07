@@ -71,6 +71,9 @@ number of clusters. Default is FALSE.}
 \item{dunn2s}{Boolean. If TRUE, compute also alternative Dunn's index to
 choose best number of clusters. Default is FALSE.}
 }
+\value{
+clustering results, weights and weighted consensus matrix
+}
 \description{
 Title
 }

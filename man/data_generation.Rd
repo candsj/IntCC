@@ -13,6 +13,9 @@ data_generation(clustersize, info_features, total_features)
 
 \item{total_features}{Number of total features.}
 }
+\value{
+simulation datasets
+}
 \description{
 Title
 }

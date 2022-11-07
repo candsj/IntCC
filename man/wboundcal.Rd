@@ -9,6 +9,9 @@ wboundcal(data = NULL, K = k)
 \arguments{
 \item{K}{}
 }
+\value{
+wbound calculated from regression
+}
 \description{
 Title
 }

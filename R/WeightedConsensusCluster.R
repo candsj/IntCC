@@ -29,7 +29,7 @@
 #' number of clusters. Default is FALSE.
 #' @param dunn2s Boolean. If TRUE, compute also alternative Dunn's index to
 #' choose best number of clusters. Default is FALSE.
-#'
+#' @return clustering results, weights and weighted consensus matrix
 #' @export
 #'
 #' @examples

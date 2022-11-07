@@ -12,10 +12,11 @@
 #' @param dunn2s Boolean. If TRUE, compute also alternative Dunn's index to
 #' choose best number of clusters. Default is FALSE.
 #'
-#' @return
+#' @return best final K and criterion used
 #' @export
 #'
 #' @examples
+
 criterion <- function(CM, clLabels, K, Silhouette = Silhouette, widestGap = widestGap,
                       dunns = dunns,
                       dunn2s = dunn2s) {

@@ -28,7 +28,17 @@ The other function needed for this is `consensusCluster`. This function can be f
 
 First, we generate four different type datasets with the same clustering structure (3 clusters of equal size) and different levels of noise.
 
-```{r generate data, fig.show='hold', warning=FALSE, cache=TRUE}
+```{r generate data, fig.show='hold', eval=FALSE,warning=FALSE, cache=TRUE}
+n1=20
+n2=20
+n3=20
+n = n1+n2+n3
+p=30
+p1 =5
+p2 = 5
+p3 = 5
+
+true.class=c(rep(1,n1),rep(2,n2),rep(3,n3))
   ################# normal distribution ####################
   c1=matrix(rnorm(n1*p1,mean=2.2,sd=1.7), ncol=p1,nrow=n1)
   c2=matrix(rnorm(n2*p2,mean=1.6, sd=1.7), ncol=p2,nrow=n2)
@@ -88,7 +98,7 @@ First, we generate four different type datasets with the same clustering structu
 
 Now we can use the `consensusclustering` function to compute a consensus matrix for each dataset.
 
-```{r consensus_cluster, fig.show='hold', warning=FALSE, cache=TRUE}
+```{r consensus_cluster, fig.show='hold', eval=FALSE,warning=FALSE, cache=TRUE}
   normRes=consensuscluster(normData,K=3,B=1000,pItem = 0.8,pFeature = 0.8 ,clMethod ="kmeans",finalclmethod="pam")
   binomRes=consensuscluster(binomData,K=3,B=1000,pItem = 0.8,pFeature = 0.8 ,clMethod ="kmeans",finalclmethod="pam")
   poisRes=consensuscluster(lopoisData,K=3,B=1000,pItem = 0.8,pFeature = 0.8 ,clMethod ="kmeans",finalclmethod="pam")
@@ -102,7 +112,7 @@ Now we can use the `consensusclustering` function to compute a consensus matrix 
 
 Then we could perform one layer weighted consensus clustering.
 
-```{r one layer weighted consensus clustering, fig.show='hold', warning=FALSE, cache=TRUE}
+```{r one layer weighted consensus clustering, fig.show='hold', eval=FALSE,warning=FALSE, cache=TRUE}
   res.all <- c(list(normRes),list(binomRes),list(poisRes),list(multRes))
   weights <-weightcal(res.all)
   wcm=weights[1]*res.all[[1]]$consensusMatrix+weights[2]*res.all[[2]]$consensusMatrix+
@@ -114,7 +124,7 @@ Then we could perform one layer weighted consensus clustering.
 
 Or we could perform two-layer weighted consensus clustering.
 
-```{r two-layer weighted consensus clustering, fig.show='hold', warning=FALSE, cache=TRUE}
+```{r two-layer weighted consensus clustering, fig.show='hold', eval=FALSE,warning=FALSE, cache=TRUE}
   #norm
   res.norm <- c(list(normRes),list(normRes1))
   weight.norm<- weightcal(res.norm)
@@ -161,7 +171,7 @@ Or we could perform two-layer weighted consensus clustering.
 
 The same can be done simply using the function `WeightedConsensusCluster`
 
-```{r klic, fig.show='hold', warning=FALSE, cache=TRUE}
+```{r klic, fig.show='hold', warning=FALSE, eval=FALSE,cache=TRUE}
 #one layer
   data_for_wcc <- list()
   data_for_wcc[[1]]=normData

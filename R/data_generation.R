@@ -3,7 +3,7 @@
 #' @param clustersize A number or a vector denotes the number of samples for each cluster.
 #' @param info_features Number of informative features.
 #' @param total_features Number of total features.
-#'
+#' @return simulation datasets
 #' @export
 #'
 #' @examples
