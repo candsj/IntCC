@@ -15,14 +15,7 @@
 #' @return best final K and criterion used
 #' @export
 #'
-#' @examples
-#'
-#'
-#'
-#'
-#'
-#'
-#'
+
 
 criterion <- function(CM, clLabels, K, Silhouette = Silhouette, widestGap = widestGap,
                       dunns = dunns,

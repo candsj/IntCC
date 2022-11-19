@@ -6,7 +6,6 @@
 #' @return weights for each consensus matrix
 #' @export
 #'
-
 weightcal <- function(result) {
   n <- length(result)
   clusterID <- sapply(result, "[", 2)

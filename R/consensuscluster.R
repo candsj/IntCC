@@ -117,11 +117,11 @@ consensuscluster <-
             )$cluster
           } else if (clMethod == "sparse-kmeans" & !is.null(data)) {
             if (is.null(sparseKmeansPenalty)) {
-              km.perm <- sparcl::KMeansSparseCluster.permute(data[items, ], K = K, nperms = 50)
+              km.perm <- KMeansSparseCluster.permute.ver(data[items, ], K = K, nperms = 50)
             }
 
             # Apply sparse k-means to the subsample and extract cluster labels
-            cl <- sparcl::KMeansSparseCluster(
+            cl <- KMeansSparseCluster.ver(
               data[items, ], K,
               wbounds = km.perm$bestw
             )[[1]]$Cs
@@ -219,11 +219,11 @@ consensuscluster <-
             )$cluster
           } else if (clMethod == "sparse-kmeans" & !is.null(data)) {
             if (is.null(sparseKmeansPenalty)) {
-              km.perm <- sparcl::KMeansSparseCluster.permute(data[items, features], K = K, nperms = 50)
+              km.perm <- KMeansSparseCluster.permute.ver(data[items, features], K = K, nperms = 50)
             }
 
             # Apply sparse k-means to the subsample and extract cluster labels
-            cl <- sparcl::KMeansSparseCluster(
+            cl <- KMeansSparseCluster.ver(
               data[items, features], K,
               wbounds = km.perm$bestw
             )[[1]]$Cs

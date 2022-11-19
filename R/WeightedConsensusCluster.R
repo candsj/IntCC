@@ -31,8 +31,7 @@
 #' choose best number of clusters. Default is FALSE.
 #' @return clustering results, weights and weighted consensus matrix
 #' @export
-#'
-#' @examples
+
 WeightedConsensusCluster <- function(data, method = NULL, individualK = NULL,
                                      individualMaxK = 10,
                                      globalK = NULL,
