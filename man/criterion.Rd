@@ -39,3 +39,18 @@ best final K and criterion used
 \description{
 Title
 }
+\examples{
+library(weightedCC)
+simulation=data_generation(20,5,30)
+normData=simulation[[1]]
+tempCM <- array(NA, c(60, 60, 4))
+clLabels <- matrix(NA, 4, 60)
+for (k in 2:5){
+CCoutput=consensuscluster(normData,K=k,B=1000,pItem = 0.8,pFeature = 0.8 ,
+clMethod ="kmeans",finalclmethod="pam")
+tempCM[, , k - 1] <- CCoutput[[1]]
+clLabels[k - 1, ] <- CCoutput[[2]]
+
+}
+chooseK <- criterion(tempCM, clLabels,K = 2:5, Silhouette = TRUE)
+}

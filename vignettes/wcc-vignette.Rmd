@@ -179,7 +179,7 @@ The same can be done simply using the function `WeightedConsensusCluster`
   data_for_wcc[[3]]=poisData
   data_for_wcc[[4]]=multData
   wcc <- WeightedConsensusCluster(data_for_wcc, method="one layer", individualK = rep(3, 4),
-                                   globalK = 3, pFeature = 0.8 ,ccClMethods = "k-means",
+                                   globalK = 3, pFeature = 0.8 ,ccClMethods = "kmeans",
                                     ccDistHCs = "euclidean",hclustMethod = "average",finalclmethod="hclust",
                                     finalhclustMethod = "average",Silhouette=TRUE)
 
@@ -193,7 +193,7 @@ The same can be done simply using the function `WeightedConsensusCluster`
   data_for_wcc[[6]]=binomData
   data_for_wcc[[7]]=poisData
   data_for_wcc[[8]]=multData
-  wcc <- WeightedConsensusCluster(data_for_wcc, method="one layer", individualK = rep(3, 8),
+  wcc <- WeightedConsensusCluster(data_for_wcc, method="two-layer", individualK = rep(3, 8),
                      globalK = 3, pFeature = 0.8 ,ccClMethods = c("kmeans","kmeans","kmeans","kmeans",
                                                                   "hclust","hclust","hclust","hclust"),
                      ccDistHCs = c("euclidean","euclidean","euclidean","euclidean",

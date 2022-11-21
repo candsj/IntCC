@@ -31,7 +31,13 @@
 #' choose best number of clusters. Default is FALSE.
 #' @return clustering results, weights and weighted consensus matrix
 #' @export
-
+#' @examples
+#' library(weightedCC)
+#' simulation=data_generation(20,5,30)
+#' wcc <- WeightedConsensusCluster(simulation, method="one layer", individualK = rep(3,4),
+#' globalK = 3, pFeature = 0.8 ,ccClMethods = "kmeans",
+#' ccDistHCs = "euclidean",hclustMethod = "average",finalclmethod="hclust",
+#' finalhclustMethod = "average",Silhouette=TRUE)
 WeightedConsensusCluster <- function(data, method = NULL, individualK = NULL,
                                      individualMaxK = 10,
                                      globalK = NULL,
@@ -383,9 +389,7 @@ WeightedConsensusCluster <- function(data, method = NULL, individualK = NULL,
   } else if (method == "one layer") {
     if (length(individualK) == 1) {
       individualK <- rep(individualK, M)
-    } else {
-      (length(individualK) != M)
-    }
+    } else if (length(individualK) != M)
     {
       stop("Please specify the cluster number for each dataset by passing a vector of length", M, "to individualK.")
     }
@@ -494,9 +498,7 @@ WeightedConsensusCluster <- function(data, method = NULL, individualK = NULL,
 
     if (length(individualK) == 1) {
       individualK <- rep(individualK, M)
-    } else {
-      (length(individualK) != M)
-    }
+    } else if (length(individualK) != M)
     {
       stop("Please specify the cluster number for each dataset by passing a vector of length", M, "to individualK.")
     }

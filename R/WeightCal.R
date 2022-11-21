@@ -5,7 +5,15 @@
 #'
 #' @return weights for each consensus matrix
 #' @export
-#'
+#' @examples library(weightedCC)
+#' simulation=data_generation(20,5,30)
+#' normData=simulation[[1]]
+#' normRes=consensuscluster(normData,K=3,B=1000,pItem = 0.8,pFeature = 0.8 ,
+#' clMethod ="kmeans",finalclmethod="pam")
+#' normRes1=consensuscluster(normData,K=3,B=1000,pItem = 0.8,pFeature = 0.8 ,
+#' clMethod ="hclust",finalclmethod="pam")
+#' res.norm <- c(list(normRes),list(normRes1))
+#' weight.norm<- weightcal(res.norm)
 weightcal <- function(result) {
   n <- length(result)
   clusterID <- sapply(result, "[", 2)
