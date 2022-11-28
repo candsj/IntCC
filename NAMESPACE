@@ -3,5 +3,3 @@
 export(WeightedConsensusCluster)
 export(consensuscluster)
 export(criterion)
-export(data_generation)
-export(weightcal)

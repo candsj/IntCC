@@ -34,9 +34,9 @@
 #' @export
 #'
 #' @examples library(weightedCC)
-#' simulation=data_generation(20,5,30)
-#' normData=simulation[[1]]
-#' normRes=consensuscluster(normData,K=3,B=1000,pItem = 0.8,pFeature = 0.8 ,
+#' load(system.file("extdata", "exampleData.RData", package = "weightedCC"))
+#' normData=exampleData[[1]]
+#' normRes=consensuscluster(normData,K=3,B=1000,pItem = 0.8,pFeature = 0.8,
 #' clMethod ="kmeans",finalclmethod="pam")
 
 
@@ -77,6 +77,9 @@ consensuscluster <-
 
     # For each step of the algorithm
     if (pFeature == 1) {
+      if (is.null(sparseKmeansPenalty) & clMethod == "sparse-kmeans") {
+        wbound=wboundcal(data,K)
+      }
       for (b in seq_len(B)) {
         # Sample a proportion pItem of the observations without replacement
         items <- sample(N, ceiling(N * pItem), replace = FALSE)
@@ -116,14 +119,12 @@ consensuscluster <-
               iter.max = maxIterKM, nstart = nstart
             )$cluster
           } else if (clMethod == "sparse-kmeans" & !is.null(data)) {
-            if (is.null(sparseKmeansPenalty)) {
-              km.perm <- KMeansSparseCluster.permute.ver(data[items, ], K = K, nperms = 50)
-            }
+
 
             # Apply sparse k-means to the subsample and extract cluster labels
             cl <- KMeansSparseCluster.ver(
               data[items, ], K,
-              wbounds = km.perm$bestw
+              wbounds = wbound
             )[[1]]$Cs
           } else if (clMethod == "kmodes" & !is.null(data)) {
             # Apply k-means to the subsample and extract cluster labels
@@ -179,6 +180,9 @@ consensuscluster <-
         }
       }
     } else {
+      if (is.null(sparseKmeansPenalty) & clMethod == "sparse-kmeans") {
+        wbound=wboundcal(data,K,pFeature)
+      }
       for (b in seq_len(B)) {
         # Sample a proportion pItem of the observations without replacement
         items <- sample(N, ceiling(N * pItem), replace = FALSE)
@@ -218,14 +222,10 @@ consensuscluster <-
               iter.max = maxIterKM, nstart = nstart
             )$cluster
           } else if (clMethod == "sparse-kmeans" & !is.null(data)) {
-            if (is.null(sparseKmeansPenalty)) {
-              km.perm <- KMeansSparseCluster.permute.ver(data[items, features], K = K, nperms = 50)
-            }
-
             # Apply sparse k-means to the subsample and extract cluster labels
             cl <- KMeansSparseCluster.ver(
               data[items, features], K,
-              wbounds = km.perm$bestw
+              wbounds = wbound
             )[[1]]$Cs
           } else if (clMethod == "kmodes" & !is.null(data)) {
             # Apply k-means to the subsample and extract cluster labels

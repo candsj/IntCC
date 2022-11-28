@@ -71,8 +71,8 @@ of clusters K to be fixed.
 }
 \examples{
 library(weightedCC)
-simulation=data_generation(20,5,30)
-normData=simulation[[1]]
-normRes=consensuscluster(normData,K=3,B=1000,pItem = 0.8,pFeature = 0.8 ,
+load(system.file("extdata", "exampleData.RData", package = "weightedCC"))
+normData=exampleData[[1]]
+normRes=consensuscluster(normData,K=3,B=1000,pItem = 0.8,pFeature = 0.8,
 clMethod ="kmeans",finalclmethod="pam")
 }

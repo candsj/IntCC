@@ -15,8 +15,8 @@
 #' @return best final K and criterion used
 #' @export
 #' @examples library(weightedCC)
-#' simulation=data_generation(20,5,30)
-#' normData=simulation[[1]]
+#' load(system.file("extdata", "exampleData.RData", package = "weightedCC"))
+#' normData=exampleData[[1]]
 #' tempCM <- array(NA, c(60, 60, 4))
 #' clLabels <- matrix(NA, 4, 60)
 #' for (k in 2:5){

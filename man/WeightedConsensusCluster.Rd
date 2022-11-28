@@ -79,8 +79,8 @@ Title
 }
 \examples{
 library(weightedCC)
-simulation=data_generation(20,5,30)
-wcc <- WeightedConsensusCluster(simulation, method="one layer", individualK = rep(3,4),
+load(system.file("extdata", "exampleData.RData", package = "weightedCC"))
+wcc <- WeightedConsensusCluster(exampleData, method="one layer", individualK = rep(3,4),
 globalK = 3, pFeature = 0.8 ,ccClMethods = "kmeans",
 ccDistHCs = "euclidean",hclustMethod = "average",finalclmethod="hclust",
 finalhclustMethod = "average",Silhouette=TRUE)
