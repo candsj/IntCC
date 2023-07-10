@@ -305,7 +305,7 @@ consensuscluster <-
     res[[2]] <- clusterLabels
     names(res) <- c("consensusMatrix", "class")
 
-    if (plot = TRUE) {
+    if (plot == TRUE) {
       plot_CM(result=res)
     }
 
