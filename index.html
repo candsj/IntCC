@@ -67,12 +67,12 @@
 
       </header><div class="row">
   <div class="contents col-md-9">
+
 <div class="section level1">
 <div class="page-header"><h1 id="weightedcc">weightedCC<a class="anchor" aria-label="anchor" href="#weightedcc"></a>
 </h1></div>
 <!-- badges: start -->
 
-<p>The goal of weightedCC is to …</p>
 <div class="section level2">
 <h2 id="installation">Installation<a class="anchor" aria-label="anchor" href="#installation"></a>
 </h2>
@@ -82,6 +82,28 @@
 <span><span class="fu">devtools</span><span class="fu">::</span><span class="fu">install_github</span><span class="op">(</span><span class="st">"candsj/weightedCC"</span><span class="op">)</span></span></code></pre></div>
 </div>
 </div>
+<div class="section level1">
+<h1 id="introduction">Introduction<a class="anchor" aria-label="anchor" href="#introduction"></a>
+</h1>
+<p>Analysis of omic datasets has become more and more important recently. It could help to define cancer subtypes and reveal novel discoveries. How to integrate omic datasets raised much-growing attention. The Cancer Genome Atlas Program began in 2006 and generated over 2.5 petabytes of genomic, epigenomic, transcriptomic, and proteomic data. This greatly improved the development of omic datasets research. Various integrative clustering methods and tools have been proposed. We proposed two-layer weighted consensus clustering method to deal with some limitations existed.</p>
+</div>
+<div class="section level1">
+<h1 id="usage-of-weighted-consensus-clustering">Usage of weighted consensus clustering<a class="anchor" aria-label="anchor" href="#usage-of-weighted-consensus-clustering"></a>
+</h1>
+<p>The R package <strong>wcc</strong> (<strong>w</strong>eighted <strong>c</strong>onsensus <strong>c</strong>lustering) introduces weighted consensus clustering functions inspired by consensus clustering methods.</p>
+<p>The main function in this package is <code>WeightedConsensusCluster</code>. Users input a list of datasets, clusteing methods, the number of clutsers for separate datasets and global, criterions and so on. Then consensus clustering will be applied to each dataset to derive consensus matrix. Depends on one layer or two-layer, consensus matrix will be weighted and combined for each dataset and final clustering. Finally user could choose pam or hierarchical clustering method to derive the clustering results. Some useful functions are also included in this package:</p>
+<ul>
+<li><p><code>criterion</code>. This function takes a list of consensus matrix, a list of corresponding clustering label results and a vector of corresponding number of clusters. It could use Silhouette, widestGap, dunns and dunn2s index as criterion to choose the best number of clusters.</p></li>
+<li><p><code>weightcal</code>. This function takes a list of consensus matrix and clustering label results. Then weights are calculated based on ratio of in-cluster proportion to out-of-cluster proportion using the cluster estimated by the algorithm itself. It could help to estimate weights for different methods of each methods or weights for consensus matrix of each dataset.</p></li>
+</ul>
+<p>The other function needed for this is <code>consensusCluster</code>. This function can be found in the R package <code>coca</code> and is used to perform consensus clustering on one dataset and obtain a co-clustering matrix (Monti et al. 2003). We made some changes to this function to allow users to define more distance metric and sample percentage for features.</p>
+</div>
+<div class="section level1">
+<h1 id="how-wcc-works">How wcc works<a class="anchor" aria-label="anchor" href="#how-wcc-works"></a>
+</h1>
+<p>First, we generate four different type datasets with the same clustering structure (3 clusters of equal size) and different levels of noise.</p>
+</div>
+
   </div>
 
   <div class="col-md-3 hidden-xs hidden-sm" id="pkgdown-sidebar">
@@ -126,7 +148,7 @@
 
 <div class="pkgdown">
   <p></p>
-<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.6.</p>
+<p>Site built with <a href="https://pkgdown.r-lib.org/" class="external-link">pkgdown</a> 2.0.7.</p>
 </div>
 
       </footer>
