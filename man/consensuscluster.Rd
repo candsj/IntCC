@@ -17,7 +17,8 @@ consensuscluster(
   finalhclustMethod = "average",
   sparseKmeansPenalty = NULL,
   maxIterKM = 1000,
-  nstart = 20,plot=FALSE
+  nstart = 20,
+  plot = FALSE
 )
 }
 \arguments{
@@ -60,7 +61,8 @@ number of variables.}
 \item{maxIterKM}{Number of iterations for the k-means clustering algorithm.}
 
 \item{nstart}{nstart parameter for k-means if used.}
-\item{plot}{Boolean value for heatmap generated or not.}
+
+\item{plot}{plot heatmap for weighted consensus matrix or not.}
 }
 \value{
 consensus matrix and label results

@@ -25,5 +25,5 @@ plot_CM <-
     clusterID <- result[[2]]
     cluster_order=unlist(split(seq_along(clusterID), clusterID))
     pheatmap::pheatmap(CM[cluster_order,cluster_order],treeheight_row = 0,treeheight_col = 0)
-    if (!is.null(data)) {pheatmap::pheatmap(data[cluster_order,cluster_order],treeheight_row = 0,treeheight_col = 0)}
+    if (!is.null(data)) {pheatmap::pheatmap(data[cluster_order,],treeheight_row = 0,treeheight_col = 0)}
   }
