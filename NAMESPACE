@@ -3,3 +3,4 @@
 export(WeightedConsensusCluster)
 export(consensuscluster)
 export(criterion)
+export(plot_CM)
