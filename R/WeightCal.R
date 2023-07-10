@@ -20,7 +20,7 @@ weightcal <- function(result) {
   weights <- rep(NA, n)
 
   for (i in 1:n) {
-    K <- length(unique(result[[i]]$class))
+    K <- length(unique(result[[i]][[2]]))
     weights[i] <- mean(unlist(lapply(1:K, FUN = function(k) {
       mean(CCmat.sort[[i]][clusterID.sort[[i]] == k, clusterID.sort[[i]] == k])
     }))) /

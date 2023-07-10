@@ -30,6 +30,7 @@
 #' number of variables.
 #' @param maxIterKM Number of iterations for the k-means clustering algorithm.
 #' @param nstart nstart parameter for k-means if used.
+ #' @param plot plot heatmap for weighted consensus matrix or not.
 #' @return consensus matrix and label results
 #' @export
 #'
@@ -49,7 +50,7 @@ consensuscluster <-
            dist = "euclidean",
            hclustMethod = "average", finalclmethod = "hclust", finalhclustMethod = "average",
            sparseKmeansPenalty = NULL,
-           maxIterKM = 1000, nstart = 20) {
+           maxIterKM = 1000, nstart = 20, plot=FALSE) {
     containsFactors <- 0
     if (!is.null(data)) {
       # Save number of observations
@@ -298,9 +299,15 @@ consensuscluster <-
     } else {
       clusterLabels <- cluster::pam(distances, K, diss = TRUE, metric = "euclidean")$clustering
     }
+
     res <- alist()
     res[[1]] <- consensusMatrix
     res[[2]] <- clusterLabels
     names(res) <- c("consensusMatrix", "class")
+
+    if (plot = TRUE) {
+      plot_CM(result=res)
+    }
+
     return(res)
   }
