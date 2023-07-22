@@ -25,7 +25,7 @@ library("intCC")
 
 
 ## Introduction
-Analysis of omic datasets has become more and more important recently. It could help to define cancer subtypes and reveal novel discoveries. How to integrate omic datasets raised much-growing attention. The Cancer Genome Atlas Program began in 2006 and generated over 2.5 petabytes of genomic, epigenomic, transcriptomic, and proteomic data. This greatly improved the development of omic datasets research. Various integrative clustering methods and tools have been proposed. We proposed two-layer intCC method to deal with some limitations existed.
+Analysis of omic datasets has become more and more important recently. It could help to define cancer subtypes and reveal novel discoveries. How to integrate omic datasets raised much-growing attention. The Cancer Genome Atlas Program began in 2006 and generated over 2.5 petabytes of genomic, epigenomic, transcriptomic, and proteomic data. This greatly improved the development of omic datasets research. Various integrative clustering methods and tools have been proposed. We proposed 2 layer intCC method to deal with some limitations existed.
 
 ## Usage of intCC
 
