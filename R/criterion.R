@@ -14,7 +14,7 @@
 #'
 #' @return best final K and criterion used
 #' @export
-#' @examples library(weightedCC)
+#' @examples library(intCC)
 #' load(system.file("extdata", "exampleData.RData", package = "weightedCC"))
 #' normData=exampleData[[1]]
 #' tempCM <- array(NA, c(60, 60, 4))

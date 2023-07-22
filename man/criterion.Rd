@@ -40,7 +40,7 @@ best final K and criterion used
 Title
 }
 \examples{
-library(weightedCC)
+library(intCC)
 load(system.file("extdata", "exampleData.RData", package = "weightedCC"))
 normData=exampleData[[1]]
 tempCM <- array(NA, c(60, 60, 4))

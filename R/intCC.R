@@ -1,7 +1,7 @@
 #' Title
 #'
 #' @param data List of M datasets, each of size N X P_m, m = 1, ..., M.
-#' @param method One layer or two-layer. Default is one layer.
+#' @param method 1 layer or 2 layer.
 #' @param individualK Vector containing the number of clusters in each dataset.
 #' Default is NULL. If the number of clusters is not provided, then all the
 #' possible values between 2 and individualMaxK are considered and the best
@@ -32,13 +32,13 @@
 #' @return clustering results, weights and weighted consensus matrix
 #' @export
 #' @examples
-#' library(weightedCC)
-#' load(system.file("extdata", "exampleData.RData", package = "weightedCC"))
-#' wcc <- WeightedConsensusCluster(exampleData, method="one layer", individualK = rep(3,4),
+#' library(intCC)
+#' load(system.file("extdata", "exampleData.RData", package = "intCC"))
+#' res <- intCC(exampleData, method="one layer", individualK = rep(3,4),
 #' globalK = 3, pFeature = 0.8 ,ccClMethods = "kmeans",
 #' ccDistHCs = "euclidean",hclustMethod = "average",finalclmethod="hclust",
 #' finalhclustMethod = "average",Silhouette=TRUE)
-WeightedConsensusCluster <- function(data, method = NULL, individualK = NULL,
+intCC <- function(data, method = NULL, individualK = NULL,
                                      individualMaxK = 10,
                                      globalK = NULL,
                                      B = 1000, pItem = 0.8,
@@ -58,7 +58,7 @@ WeightedConsensusCluster <- function(data, method = NULL, individualK = NULL,
     }
   }
   if (is.null(method)) stop("method should be provided")
-  method <- match.arg(method, c("one layer", "two-layer"))
+  method <- match.arg(method, c("1 layer", "2 layer"))
 
   res.all <- list()
   output <- list()
@@ -66,7 +66,7 @@ WeightedConsensusCluster <- function(data, method = NULL, individualK = NULL,
   CM <- array(NA, c(N, N, M))
 
   if (is.null(individualK)) {
-    if (method == "one layer") {
+    if (method == "1 layer") {
       if (length(ccClMethods) == 1) {
         ccClMethods <- rep(ccClMethods, M)
       } else if (length(ccClMethods) != M) {

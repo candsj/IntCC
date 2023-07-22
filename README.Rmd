@@ -1,5 +1,5 @@
 ---
-title: "Introduction to weighted consensus clustering"
+title: "Introduction to intCC"
 author: "Can Huang"
 date: "`r Sys.Date()`"
 output: 
@@ -7,33 +7,33 @@ output:
     toc: true
     theme: united
 vignette: >
-  %\VignetteIndexEntry{R package wcc}
+  %\VignetteIndexEntry{R package intCC}
   %\VignetteEngine{knitr::rmarkdown}
   %\VignetteEncoding{UTF-8}
 ---
 
 # Installation
 
-To install and load weighted consensus clustering
+To install and load intCC
 
 ```{r,  eval=FALSE,warning=FALSE, cache=TRUE}
 # install.packages("devtools")
-devtools::install_github("candsj/weightedCC")
+devtools::install_github("candsj/intCC")
 ```
 
 ```{r, eval=FALSE,warning=FALSE, cache=TRUE}
-library("weightedCC")
+library("intCC")
 ```
 
 
 # Introduction
-Analysis of omic datasets has become more and more important recently. It could help to define cancer subtypes and reveal novel discoveries. How to integrate omic datasets raised much-growing attention. The Cancer Genome Atlas Program began in 2006 and generated over 2.5 petabytes of genomic, epigenomic, transcriptomic, and proteomic data. This greatly improved the development of omic datasets research. Various integrative clustering methods and tools have been proposed. We proposed two-layer weighted consensus clustering method to deal with some limitations existed.
+Analysis of omic datasets has become more and more important recently. It could help to define cancer subtypes and reveal novel discoveries. How to integrate omic datasets raised much-growing attention. The Cancer Genome Atlas Program began in 2006 and generated over 2.5 petabytes of genomic, epigenomic, transcriptomic, and proteomic data. This greatly improved the development of omic datasets research. Various integrative clustering methods and tools have been proposed. We proposed two-layer intCC method to deal with some limitations existed.
 
-# Usage of weighted consensus clustering
+# Usage of intCC
 
-The R package **wcc** (**w**eighted **c**onsensus **c**lustering) introduces weighted consensus clustering functions inspired by consensus clustering methods.
+The R package **intCC** (**i**ntegrative **C**onsensus **C**lustering) introduces intCC functions inspired by consensus clustering methods.
 
-The main function in this package is `WeightedConsensusCluster`. Users input a list of datasets, clusteing methods, the number of clutsers for separate datasets and global, criterions and so on. Then consensus clustering will be applied to each dataset to derive consensus matrix. Depends on one layer or two-layer, consensus matrix will be weighted and combined for each dataset and final clustering. Finally user could choose pam or hierarchical clustering method to derive the clustering results. Some useful functions are also included in this package: 
+The main function in this package is `intCC`. Users input a list of datasets, clusteing methods, the number of clutsers for separate datasets and global, criterions and so on. Then consensus clustering will be applied to each dataset to derive consensus matrix. Depends on 1 layer or 2 layer, consensus matrix will be weighted and combined for each dataset and final clustering. Finally user could choose pam or hierarchical clustering method to derive the clustering results. Some useful functions are also included in this package: 
 
 * `criterion`. This function takes a list of consensus matrix, a list of corresponding clustering label results and a vector of corresponding number of clusters. It could use Silhouette, widestGap, dunns and dunn2s index as criterion to choose the best number of clusters.
 
@@ -44,12 +44,12 @@ The main function in this package is `WeightedConsensusCluster`. Users input a l
 The other function needed for this is `consensusCluster`. This function can be found in the R package `coca` and is used to perform consensus clustering on one dataset and obtain a co-clustering matrix  (Monti et al. 2003). We made some changes to this function to allow users to define more distance metric and sample percentage for features.
 
 
-# How wcc works 
+# How intCC works 
 
 First, we generate four different type datasets with the same clustering structure (3 clusters of equal size) and different levels of noise.
 
 ```{r load data, fig.show='hold', eval=FALSE,warning=FALSE, cache=TRUE}
-  load(system.file("extdata", "exampleData.RData", package = "weightedCC"))
+  load(system.file("extdata", "exampleData.RData", package = "intCC"))
   normData=exampleData[[1]]
   binomData=exampleData[[2]]
   poisData=exampleData[[3]]
@@ -71,21 +71,21 @@ Now we can use the `consensusclustering` function to compute a consensus matrix 
   multRes1=consensuscluster(multData,K=3,B=1000,pItem = 0.8,pFeature = 0.8 ,clMethod ="hclust",dist = "hamming",finalclmethod="pam")
 ```
 
-Then we could perform one layer weighted consensus clustering.
+Then we could perform 1 layer intCC.
 
-```{r one layer wcc, fig.show='hold', eval=FALSE,warning=FALSE, cache=TRUE}
-  res.all <- c(list(normRes),list(binomRes),list(poisRes),list(multRes))
-  weights <-weightcal(res.all)
-  wcm=weights[1]*res.all[[1]]$consensusMatrix+weights[2]*res.all[[2]]$consensusMatrix+
-    weights[3]*res.all[[3]]$consensusMatrix+weights[4]*res.all[[4]]$consensusMatrix
+```{r 1 layer intCC, fig.show='hold', eval=FALSE,warning=FALSE, cache=TRUE}
+  res_1layer <- c(list(normRes),list(binomRes),list(poisRes),list(multRes))
+  weights <-weightcal(res.1layer)
+  wcm=weights[1]*res.1layer[[1]]$consensusMatrix+weights[2]*res.1layer[[2]]$consensusMatrix+
+    weights[3]*res.1layer[[3]]$consensusMatrix+weights[4]*res.1layer[[4]]$consensusMatrix
   distances <- stats::as.dist(1 - wcm)
   weight_clusterLabels <- pam(distances,3,diss = TRUE,metric = "euclidean" )$clustering
   ari.weight<- adjustedRandIndex(true.class, weight_clusterLabels)
 ```
 
-Or we could perform two-layer weighted consensus clustering.
+Or we could perform 2 layer intCC.
 
-```{r two-layer wcc, fig.show='hold', eval=FALSE,warning=FALSE, cache=TRUE}
+```{r 2 layer intCC, fig.show='hold', eval=FALSE,warning=FALSE, cache=TRUE}
   #norm
   res.norm <- c(list(normRes),list(normRes1))
   weight.norm<- weightcal(res.norm)
@@ -119,10 +119,10 @@ Or we could perform two-layer weighted consensus clustering.
   weightmultRes=list(consensusMatrix=wcm,class=weight_clusterLabels)
   
   #2 layer wcm
-  res.wcm <- c(list(weightnormRes),list(weightbinomRes),list(weightpoisRes),list(weightmultRes))
-  weight.wcm <- weightcal(res.wcm)
-  wcm=weight.wcm[1]*res.wcm[[1]]$consensusMatrix+weight.wcm[2]*res.wcm[[2]]$consensusMatrix+
-    weight.wcm[3]*res.wcm[[3]]$consensusMatrix+weight.wcm[4]*res.wcm[[4]]$consensusMatrix
+  res.2layer <- c(list(weightnormRes),list(weightbinomRes),list(weightpoisRes),list(weightmultRes))
+  weight.wcm <- weightcal(res.2layer)
+  wcm=weight.wcm[1]*res.2layer[[1]]$consensusMatrix+weight.wcm[2]*res.2layer[[2]]$consensusMatrix+
+    weight.wcm[3]*res.2layer[[3]]$consensusMatrix+weight.wcm[4]*res.2layer[[4]]$consensusMatrix
   distances <- stats::as.dist(1 - wcm)
   weight_clusterLabels <- pam(distances,3,diss = TRUE,metric = "euclidean" )$clustering
   end.time3=Sys.time()
@@ -130,31 +130,30 @@ Or we could perform two-layer weighted consensus clustering.
 ```
 
 
-The same can be done simply using the function `WeightedConsensusCluster`
+The same can be done simply using the function `intCC`
 
 ```{r klic, fig.show='hold', warning=FALSE, eval=FALSE,cache=TRUE}
-#one layer
-  wcc <- WeightedConsensusCluster(exampleData, method="one layer", individualK = rep(3, 4),
+#1 layer
+  res.1layer <- intCC(exampleData, method="1 layer", individualK = rep(3, 4),
                                    globalK = 3, pFeature = 0.8 ,ccClMethods = "kmeans",
                                     ccDistHCs = "euclidean",hclustMethod = "average",finalclmethod="hclust",
                                     finalhclustMethod = "average",Silhouette=TRUE)
 
-#two-layer
-  data_for_wcc <- list()
-  data_for_wcc[[1]]=normData
-  data_for_wcc[[2]]=binomData
-  data_for_wcc[[3]]=lopoisData
-  data_for_wcc[[4]]=multData
-  data_for_wcc[[5]]=normData
-  data_for_wcc[[6]]=binomData
-  data_for_wcc[[7]]=poisData
-  data_for_wcc[[8]]=multData
-  wcc <- WeightedConsensusCluster(data_for_wcc, method="two-layer", individualK = rep(3, 8),
+#2 layer
+  data_for_intCC <- list()
+  data_for_intCC[[1]]=normData
+  data_for_intCC[[2]]=binomData
+  data_for_intCC[[3]]=lopoisData
+  data_for_intCC[[4]]=multData
+  data_for_intCC[[5]]=normData
+  data_for_intCC[[6]]=binomData
+  data_for_intCC[[7]]=poisData
+  data_for_intCC[[8]]=multData
+  res.2layer <- intCC(data_for_intCC, method="2 layer", individualK = rep(3, 8),
                      globalK = 3, pFeature = 0.8 ,ccClMethods = c("kmeans","kmeans","kmeans","kmeans",
                                                                   "hclust","hclust","hclust","hclust"),
                      ccDistHCs = c("euclidean","euclidean","euclidean","euclidean",
-                                   "euclidean","binary","jaccard","hamming"),hclustMethod = "average",finalclmethod="hclust",
-                                    finalhclustMethod = "average",Silhouette=TRUE)
+                                   "euclidean","binary","jaccard","hamming"),hclustMethod = "average",finalclmethod="hclust",finalhclustMethod = "average",Silhouette=TRUE)
 
 ```
 

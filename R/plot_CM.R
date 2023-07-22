@@ -9,7 +9,7 @@
 #' @return heatmap for consensus matrix from the result or heatmap for dataset
 #' @export
 #'
-#' @examples library(weightedCC)
+#' @examples library(intCC)
 #' load(system.file("extdata", "exampleData.RData", package = "weightedCC"))
 #' normData=exampleData[[1]]
 #' normRes=consensuscluster(normData,K=3,B=1000,pItem = 0.8,pFeature = 0.8,
