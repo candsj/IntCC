@@ -22,9 +22,6 @@
     <loc>/index.html</loc>
   </url>
   <url>
-    <loc>/reference/WeightedConsensusCluster.html</loc>
-  </url>
-  <url>
     <loc>/reference/consensuscluster.html</loc>
   </url>
   <url>
@@ -32,6 +29,9 @@
   </url>
   <url>
     <loc>/reference/index.html</loc>
+  </url>
+  <url>
+    <loc>/reference/intCC.html</loc>
   </url>
   <url>
     <loc>/reference/plot_CM.html</loc>
