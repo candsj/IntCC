@@ -27,7 +27,7 @@ intCC(
 \arguments{
 \item{data}{List of M datasets, each of size N X P_m, m = 1, ..., M.}
 
-\item{method}{One layer or two-layer. Default is one layer.}
+\item{method}{1 layer or 2 layer.}
 
 \item{individualK}{Vector containing the number of clusters in each dataset.
 Default is NULL. If the number of clusters is not provided, then all the
@@ -78,9 +78,9 @@ clustering results, weights and weighted consensus matrix
 Title
 }
 \examples{
-library(weightedCC)
+library(intCC)
 load(system.file("extdata", "exampleData.RData", package = "intCC"))
-res <- intCC(exampleData, method="one layer", individualK = rep(3,4),
+res <- intCC(exampleData, method="1 layer", individualK = rep(3,4),
 globalK = 3, pFeature = 0.8 ,ccClMethods = "kmeans",
 ccDistHCs = "euclidean",hclustMethod = "average",finalclmethod="hclust",
 finalhclustMethod = "average",Silhouette=TRUE)

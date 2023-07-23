@@ -1,4 +1,4 @@
-Package: weightedCC
+Package: intCC
 Title: What the Package Does (One Line, Title Case)
 Version: 0.1.0
 Authors@R: 
@@ -6,7 +6,7 @@ Authors@R:
            family = "Huang",
            role = c("aut", "cre"),
            email = "can.huang@stonybrook.edu")
-Description: One layer or two-layer weighted consensus clustering.
+Description: 1 layer or 2 layer weighted consensus clustering.
 License: MIT + file LICENSE
 Encoding: UTF-8
 Imports: 
@@ -18,8 +18,8 @@ Imports:
     stats,
     sparcl,
     utils,
-    pheatmap
+    pheatmap,
 Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.3
 VignetteBuilder: knitr
-Suggests: covr,renv,Rmosek,knitr,rmarkdown
+Suggests: renv,Rmosek,knitr,rmarkdown

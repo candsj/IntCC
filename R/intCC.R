@@ -34,7 +34,7 @@
 #' @examples
 #' library(intCC)
 #' load(system.file("extdata", "exampleData.RData", package = "intCC"))
-#' res <- intCC(exampleData, method="one layer", individualK = rep(3,4),
+#' res <- intCC(exampleData, method="1 layer", individualK = rep(3,4),
 #' globalK = 3, pFeature = 0.8 ,ccClMethods = "kmeans",
 #' ccDistHCs = "euclidean",hclustMethod = "average",finalclmethod="hclust",
 #' finalhclustMethod = "average",Silhouette=TRUE)
@@ -386,7 +386,7 @@ intCC <- function(data, method = NULL, individualK = NULL,
         output$weightedKM <- wcm
       }
     }
-  } else if (method == "one layer") {
+  } else if (method == "1 layer") {
     if (length(individualK) == 1) {
       individualK <- rep(individualK, M)
     } else if (length(individualK) != M)

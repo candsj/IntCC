@@ -1,6 +1,6 @@
 ^renv$
 ^renv\.lock$
-^weightedCC\.Rproj$
+^intCC\.Rproj$
 ^\.Rproj\.user$
 ^README\.Rmd$
 ^LICENSE\.md$
