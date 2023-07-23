@@ -174,7 +174,7 @@ sessionInfo()
 
 # References 
 
-Cabassi, A. and Kirk, P. D. W. (2019). Multiple kernel learning for integrative
-consensus clustering of 'omic datasets. arXiv preprint. arXiv:1904.07701.
+C. Huang and P. Kuan. (2023). intCC: An efficient weighted integrative consensus clustering of multimodal data. Submitted.
+A. Cabassi and P. D. Kirk. (2020). Multiple kernel learning for integrative consensus clustering of omic datasets. Bioinformatics 36, 4789.
 
 
