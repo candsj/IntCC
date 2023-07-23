@@ -41,7 +41,7 @@ Title
 }
 \examples{
 library(intCC)
-load(system.file("extdata", "exampleData.RData", package = "weightedCC"))
+load(system.file("extdata", "exampleData.RData", package = "intCC"))
 normData=exampleData[[1]]
 tempCM <- array(NA, c(60, 60, 4))
 clLabels <- matrix(NA, 4, 60)
