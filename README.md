@@ -67,7 +67,7 @@ Suppoese we only want to apply one method like k-means to each dataset. We could
 Then we could perform 1 layer intCC. We combine consensus clustering results from 4 datasets and calculate the weight for each dataset. Then we calculate the weighted consensus matrix and apply pam method to derive the final clustering result.
 
 ```r
-#combine consensus clustering results 
+  #combine consensus clustering results 
   res_1layer <- c(list(normRes),list(binomRes),list(poisRes),list(multRes))
 
   #calculate weight and weighted consensus matrix
@@ -84,7 +84,7 @@ Then we could perform 1 layer intCC. We combine consensus clustering results fro
 The same can be done simply using the function `intCC`. The function returns clustering results, weights and weighted consensus matrix.
 
 ```r
-#1 layer
+  #1 layer
   res.1layer <- intCC(exampleData, method="1 layer", individualK = rep(3, 4),
                                    globalK = 3, pFeature = 0.8 ,ccClMethods = "kmeans",
                                     ccDistHCs = "euclidean",hclustMethod = "average",finalclmethod="hclust",
@@ -94,7 +94,7 @@ The same can be done simply using the function `intCC`. The function returns clu
 Suppose we don't know which clustering method is better and want to apply two methods like k-means and hierarchical clustering to each dataset. As we already finished the consensus clustering using k-means method, we do the consensus clustering using hierarchical clustering first.
 
 ```r
-   normRes1=consensuscluster(normData,K=3,B=1000,pItem = 0.8,pFeature = 0.8 ,clMethod ="hclust",finalclmethod="pam")
+  normRes1=consensuscluster(normData,K=3,B=1000,pItem = 0.8,pFeature = 0.8 ,clMethod ="hclust",finalclmethod="pam")
   binomRes1=consensuscluster(binomData,K=3,B=1000,pItem = 0.8,pFeature = 0.8 ,clMethod ="hclust",dist = "binary",finalclmethod="pam")
   poisRes1=consensuscluster(poisData,K=3,B=1000,pItem = 0.8,pFeature = 0.8 ,clMethod ="hclust",dist = "jaccard",finalclmethod="pam")
   multRes1=consensuscluster(multData,K=3,B=1000,pItem = 0.8,pFeature = 0.8 ,clMethod ="hclust",dist = "hamming",finalclmethod="pam")
@@ -103,7 +103,7 @@ Suppose we don't know which clustering method is better and want to apply two me
 Then we could perform 2 layer intCC. We combine k-means consensus clustering result and hierarchical clustering consensus clustering result for each dataset first and then apply pam method to each weighted consensus matrix. 
 
 ```r
-#norm
+  #norm
   #combine results using 2 methods
   res.norm <- c(list(normRes),list(normRes1))
   #calculate the weight and weighted consensus matrix
@@ -151,7 +151,7 @@ Then we could perform 2 layer intCC. We combine k-means consensus clustering res
 We combine weighted consensus clustering results from 4 datasets and calculate the weight for each dataset. Then we calculate the weighted of weighted consensus matrix and apply pam method to derive the final clustering result.
 
 ```r
-#2 layer intCC
+  #2 layer intCC
   #combine weighted consensus clustering results
   res.2layer <- c(list(weightnormRes),list(weightbinomRes),list(weightpoisRes),list(weightmultRes))
 
