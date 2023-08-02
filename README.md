@@ -31,7 +31,7 @@ Analysis of omic datasets has become more and more important recently. It could 
 
 The R package **intCC** (**i**ntegrative **C**onsensus **C**lustering) introduces intCC functions inspired by consensus clustering methods.
 
-The main function in this package is `intCC`. Users input a list of datasets, clusteing methods, the number of clutsers for separate datasets and global, criterions and so on. Then consensus clustering will be applied to each dataset to derive consensus matrix. Depends on 1 layer or 2 layer, consensus matrix will be weighted and combined for each dataset and final clustering. Finally user could choose pam or hierarchical clustering method to derive the clustering results. Some useful functions are also included in this package: 
+The main function in this package is `intCC`. Users input a list of datasets, clustering methods, the number of clutsers for separate datasets and global, criterions and so on. Then consensus clustering will be applied to each dataset to derive consensus matrix. Depends on 1 layer or 2 layer, consensus matrix will be weighted and combined for each dataset and final clustering. Finally user could choose pam or hierarchical clustering method to derive the clustering results. Some useful functions are also included in this package: 
 
 * `criterion`. This function takes a list of consensus matrix, a list of corresponding clustering label results and a vector of corresponding number of clusters. It could use Silhouette, widestGap, dunns and dunn2s index as criterion to choose the best number of clusters.
 
@@ -163,7 +163,6 @@ We combine weighted consensus clustering results from 4 datasets and calculate t
   #apply pam method to derive the final clustering result
   distances <- stats::as.dist(1 - wcm)
   weight_clusterLabels <- pam(distances,3,diss = TRUE,metric = "euclidean" )$clustering
-  end.time3=Sys.time()
   ari.wcm <- adjustedRandIndex(true.class, weight_clusterLabels)
 ```
 
