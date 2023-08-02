@@ -110,7 +110,7 @@ existed.</p>
 <strong>C</strong>onsensus <strong>C</strong>lustering) introduces intCC
 functions inspired by consensus clustering methods.</p>
 <p>The main function in this package is <code>intCC</code>. Users input
-a list of datasets, clusteing methods, the number of clutsers for
+a list of datasets, clustering methods, the number of clutsers for
 separate datasets and global, criterions and so on. Then consensus
 clustering will be applied to each dataset to derive consensus matrix.
 Depends on 1 layer or 2 layer, consensus matrix will be weighted and
@@ -263,7 +263,6 @@ clustering result.</p>
 <span>  <span class="co">#apply pam method to derive the final clustering result</span></span>
 <span>  <span class="va">distances</span> <span class="op">&lt;-</span> <span class="fu">stats</span><span class="fu">::</span><span class="fu"><a href="https://rdrr.io/r/stats/dist.html" class="external-link">as.dist</a></span><span class="op">(</span><span class="fl">1</span> <span class="op">-</span> <span class="va">wcm</span><span class="op">)</span></span>
 <span>  <span class="va">weight_clusterLabels</span> <span class="op">&lt;-</span> <span class="fu">pam</span><span class="op">(</span><span class="va">distances</span>,<span class="fl">3</span>,diss <span class="op">=</span> <span class="cn">TRUE</span>,metric <span class="op">=</span> <span class="st">"euclidean"</span> <span class="op">)</span><span class="op">$</span><span class="va">clustering</span></span>
-<span>  <span class="va">end.time3</span><span class="op">=</span><span class="fu"><a href="https://rdrr.io/r/base/Sys.time.html" class="external-link">Sys.time</a></span><span class="op">(</span><span class="op">)</span></span>
 <span>  <span class="va">ari.wcm</span> <span class="op">&lt;-</span> <span class="fu">adjustedRandIndex</span><span class="op">(</span><span class="va">true.class</span>, <span class="va">weight_clusterLabels</span><span class="op">)</span></span></code></pre></div>
 <p>The same can be done simply using the function
 <code>intCC</code>.</p>
